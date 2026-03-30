@@ -5,7 +5,7 @@ A professional portfolio website built with HTML, CSS, and JavaScript featuring 
 ## Features ✨
 
 - **Responsive Design**: Works beautifully on desktop, tablet, and mobile devices
-- **Black & Purple Theme**: Modern, professional color scheme with smooth gradients
+- **Black & Blue Theme**: Modern, professional color scheme with smooth gradients
 - **Smooth Animations**: Scroll animations and interactive elements
 - **Multiple Sections**:
   - Hero section with call-to-action
