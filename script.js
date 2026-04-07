@@ -1,10 +1,43 @@
 const navLinks = document.querySelectorAll('.nav-links a');
+const navToggle = document.querySelector('.nav-toggle');
+const mobileNavBreakpoint = window.matchMedia('(max-width: 960px)');
+const finePointer = window.matchMedia('(pointer: fine)').matches;
+const sections = Array.from(document.querySelectorAll('section'));
+const navbar = document.querySelector('.navbar');
 
 function setActiveNavLink(targetId) {
     navLinks.forEach(link => {
         link.style.color = link.getAttribute('href') === `#${targetId}` ? '#58a6ff' : '#8b949e';
     });
 }
+
+function setMobileNavState(isOpen) {
+    document.body.classList.toggle('nav-open', isOpen);
+
+    if (navToggle) {
+        navToggle.setAttribute('aria-expanded', String(isOpen));
+        navToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    }
+}
+
+if (navToggle) {
+    navToggle.addEventListener('click', () => {
+        const isOpen = document.body.classList.contains('nav-open');
+        setMobileNavState(!isOpen);
+    });
+}
+
+mobileNavBreakpoint.addEventListener('change', event => {
+    if (!event.matches) {
+        setMobileNavState(false);
+    }
+});
+
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+        setMobileNavState(false);
+    }
+});
 
 // ============== Smooth Navigation ==============
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -21,6 +54,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             if (this.matches('.nav-links a')) {
                 setActiveNavLink(target.id);
             }
+            if (mobileNavBreakpoint.matches) {
+                setMobileNavState(false);
+            }
             if (targetSelector === '#home') {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
@@ -36,8 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // ============== Active Navigation Link ==============
-window.addEventListener('scroll', () => {
-    const sections = Array.from(document.querySelectorAll('section'));
+function updateScrollState() {
     const activationLine = window.innerHeight * 0.32;
 
     const activeSection =
@@ -49,7 +84,24 @@ window.addEventListener('scroll', () => {
     if (activeSection) {
         setActiveNavLink(activeSection.id);
     }
-});
+    if (navbar) {
+        navbar.classList.toggle('is-scrolled', window.scrollY > 50);
+    }
+}
+
+let scrollTicking = false;
+function handleScroll() {
+    if (scrollTicking) return;
+    scrollTicking = true;
+
+    window.requestAnimationFrame(() => {
+        updateScrollState();
+        scrollTicking = false;
+    });
+}
+
+window.addEventListener('scroll', handleScroll, { passive: true });
+updateScrollState();
 
 // ============== Contact Form Handling ==============
 document.addEventListener('DOMContentLoaded', function () {
@@ -184,15 +236,6 @@ revealSelectors.forEach(selector => {
     });
 });
 
-// ============== Parallax Effect on Hero ==============
-window.addEventListener('scroll', () => {
-    const heroWrapper = document.querySelector('.hero-wrapper');
-    if (heroWrapper) {
-        const scrolled = window.pageYOffset;
-        heroWrapper.style.setProperty('--hero-parallax', `${scrolled * 0.12}px`);
-    }
-});
-
 // ============== Number Counter Animation ==============
 function animateCounter(element, target, duration = 2000) {
     let current = 0;
@@ -237,91 +280,177 @@ document.querySelectorAll('.proficiency-item').forEach(item => {
 
 // ============== Pull Effect on Tech Stack Pills ==============
 const techPills = document.querySelectorAll('.tech-pill');
-techPills.forEach(pill => {
-    const resetPill = () => {
-        pill.style.setProperty('--tech-pull-x', '0px');
-        pill.style.setProperty('--tech-pull-y', '0px');
-    };
+if (finePointer) {
+    techPills.forEach(pill => {
+        const resetPill = () => {
+            pill.style.setProperty('--tech-pull-x', '0px');
+            pill.style.setProperty('--tech-pull-y', '0px');
+        };
 
-    pill.addEventListener('pointermove', event => {
-        const rect = pill.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const maxPull = 10;
-        const pullX = Math.max(-maxPull, Math.min(maxPull, (event.clientX - centerX) * 0.16));
-        const pullY = Math.max(-maxPull, Math.min(maxPull, (event.clientY - centerY) * 0.16));
+        pill.addEventListener('pointermove', event => {
+            const rect = pill.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const maxPull = 10;
+            const pullX = Math.max(-maxPull, Math.min(maxPull, (event.clientX - centerX) * 0.16));
+            const pullY = Math.max(-maxPull, Math.min(maxPull, (event.clientY - centerY) * 0.16));
 
-        pill.style.setProperty('--tech-pull-x', `${pullX}px`);
-        pill.style.setProperty('--tech-pull-y', `${pullY}px`);
+            pill.style.setProperty('--tech-pull-x', `${pullX}px`);
+            pill.style.setProperty('--tech-pull-y', `${pullY}px`);
+        });
+
+        pill.addEventListener('pointerleave', resetPill);
+        pill.addEventListener('pointerup', resetPill);
+        pill.addEventListener('pointercancel', resetPill);
     });
-
-    pill.addEventListener('pointerleave', resetPill);
-    pill.addEventListener('pointerup', resetPill);
-    pill.addEventListener('pointercancel', resetPill);
-});
+}
 
 // ============== Pull Effect on Tech Logos ==============
 const techTags = document.querySelectorAll('.tech-tag');
-techTags.forEach(tag => {
-    const logo = tag.querySelector('img');
-    if (!logo) return;
+if (finePointer) {
+    techTags.forEach(tag => {
+        const logo = tag.querySelector('img');
+        if (!logo) return;
 
-    const resetLogo = () => {
-        tag.classList.remove('is-pulling');
-        tag.style.setProperty('--logo-pull-x', '0px');
-        tag.style.setProperty('--logo-pull-y', '0px');
-        tag.style.setProperty('--logo-scale', '1');
-    };
+        const resetLogo = () => {
+            tag.classList.remove('is-pulling');
+            tag.style.setProperty('--logo-pull-x', '0px');
+            tag.style.setProperty('--logo-pull-y', '0px');
+            tag.style.setProperty('--logo-scale', '1');
+        };
 
-    logo.addEventListener('pointerdown', event => {
-        event.preventDefault();
-        logo.setPointerCapture(event.pointerId);
-        tag.classList.add('is-pulling');
-        tag.style.setProperty('--logo-scale', '1.14');
-    });
+        logo.addEventListener('pointerdown', event => {
+            event.preventDefault();
+            logo.setPointerCapture(event.pointerId);
+            tag.classList.add('is-pulling');
+            tag.style.setProperty('--logo-scale', '1.14');
+        });
 
-    logo.addEventListener('pointermove', event => {
-        if (!tag.classList.contains('is-pulling')) return;
+        logo.addEventListener('pointermove', event => {
+            if (!tag.classList.contains('is-pulling')) return;
 
-        const rect = tag.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const maxPull = 16;
+            const rect = tag.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const maxPull = 16;
 
-        const pullX = Math.max(-maxPull, Math.min(maxPull, (event.clientX - centerX) * 0.35));
-        const pullY = Math.max(-maxPull, Math.min(maxPull, (event.clientY - centerY) * 0.35));
+            const pullX = Math.max(-maxPull, Math.min(maxPull, (event.clientX - centerX) * 0.35));
+            const pullY = Math.max(-maxPull, Math.min(maxPull, (event.clientY - centerY) * 0.35));
 
-        tag.style.setProperty('--logo-pull-x', `${pullX}px`);
-        tag.style.setProperty('--logo-pull-y', `${pullY}px`);
-    });
+            tag.style.setProperty('--logo-pull-x', `${pullX}px`);
+            tag.style.setProperty('--logo-pull-y', `${pullY}px`);
+        });
 
-    const releaseLogo = event => {
-        if (logo.hasPointerCapture(event.pointerId)) {
-            logo.releasePointerCapture(event.pointerId);
-        }
-        resetLogo();
-    };
-
-    logo.addEventListener('pointerup', releaseLogo);
-    logo.addEventListener('pointercancel', releaseLogo);
-    logo.addEventListener('lostpointercapture', resetLogo);
-    tag.addEventListener('mouseleave', () => {
-        if (!tag.classList.contains('is-pulling')) {
+        const releaseLogo = event => {
+            if (logo.hasPointerCapture(event.pointerId)) {
+                logo.releasePointerCapture(event.pointerId);
+            }
             resetLogo();
-        }
-    });
-});
+        };
 
-// ============== Scroll-based Navbar Background ==============
-const navbar = document.querySelector('.navbar');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.3)';
-    } else {
-        navbar.style.boxShadow = 'none';
-    }
-});
+        logo.addEventListener('pointerup', releaseLogo);
+        logo.addEventListener('pointercancel', releaseLogo);
+        logo.addEventListener('lostpointercapture', resetLogo);
+        tag.addEventListener('mouseleave', () => {
+            if (!tag.classList.contains('is-pulling')) {
+                resetLogo();
+            }
+        });
+    });
+}
 
 // ============== Console Greeting ==============
 console.log('%cWelcome to My Portfolio!', 'font-size: 18px; color: #58a6ff; font-weight: bold;');
 console.log('%cFeel free to explore my work!', 'font-size: 14px; color: #79c0ff;');
+
+// ============== Background Particles ==============
+const particlesCanvas = document.getElementById('particles-bg');
+
+if (particlesCanvas) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ctx = particlesCanvas.getContext('2d');
+    let particlesArray = [];
+    let particleAnimationFrame = null;
+    const particleCount = prefersReducedMotion ? 40 : 90;
+
+    class Particle {
+        constructor() {
+            this.reset(true);
+            this.size = Math.random() * 1.5 + 0.2;
+            this.speedX = (Math.random() - 0.5) * 0.22;
+            this.speedY = (Math.random() - 0.5) * 0.22;
+        }
+
+        reset(initial = false) {
+            this.x = Math.random() * particlesCanvas.width;
+            this.y = Math.random() * particlesCanvas.height;
+
+            if (!initial) {
+                this.size = Math.random() * 1.5 + 0.2;
+            }
+        }
+
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+
+            if (this.x > particlesCanvas.width) this.x = 0;
+            if (this.x < 0) this.x = particlesCanvas.width;
+            if (this.y > particlesCanvas.height) this.y = 0;
+            if (this.y < 0) this.y = particlesCanvas.height;
+        }
+
+        draw() {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.82)';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function resizeParticlesCanvas() {
+        particlesCanvas.width = window.innerWidth;
+        particlesCanvas.height = window.innerHeight;
+    }
+
+    function initParticles() {
+        particlesArray = [];
+        for (let i = 0; i < particleCount; i += 1) {
+            particlesArray.push(new Particle());
+        }
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, particlesCanvas.width, particlesCanvas.height);
+
+        particlesArray.forEach(particle => {
+            particle.update();
+            particle.draw();
+        });
+
+        particleAnimationFrame = window.requestAnimationFrame(animateParticles);
+    }
+
+    resizeParticlesCanvas();
+    initParticles();
+    animateParticles();
+
+    window.addEventListener('resize', () => {
+        resizeParticlesCanvas();
+        initParticles();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (particleAnimationFrame) {
+                window.cancelAnimationFrame(particleAnimationFrame);
+                particleAnimationFrame = null;
+            }
+            return;
+        }
+
+        if (!particleAnimationFrame) {
+            animateParticles();
+        }
+    });
+}
