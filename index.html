@@ -4,6 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio - Developer & Designer</title>
+    <script>
+        (() => {
+            try {
+                const storedTheme = window.localStorage.getItem('portfolio-theme');
+                const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                document.documentElement.dataset.theme = storedTheme || preferredTheme;
+            } catch (error) {
+                document.documentElement.dataset.theme = 'dark';
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -27,15 +38,28 @@
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#testimonials">Testimonials</a></li>
             </ul>
-            <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open navigation menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <a href="#contact" class="nav-talk-button">
-                <span class="button-label">Let's Talk</span>
-                <span class="nav-talk-arrow" aria-hidden="true">&#8599;</span>
-            </a>
+            <div class="nav-actions">
+                <button class="theme-toggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
+                    <span class="theme-toggle-icon" aria-hidden="true">
+                        <svg class="theme-toggle-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4.2"></circle>
+                            <path d="M12 2.5v2.4M12 19.1v2.4M4.93 4.93l1.7 1.7M17.37 17.37l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.93 19.07l1.7-1.7M17.37 6.63l1.7-1.7"></path>
+                        </svg>
+                        <svg class="theme-toggle-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.2 14.2A8.5 8.5 0 1 1 9.8 3.8a6.8 6.8 0 1 0 10.4 10.4Z"></path>
+                        </svg>
+                    </span>
+                </button>
+                <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Open navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <a href="#contact" class="nav-talk-button">
+                    <span class="button-label">Let's Talk</span>
+                    <span class="nav-talk-arrow" aria-hidden="true">&#8599;</span>
+                </a>
+            </div>
         </div>
     </nav>
 
@@ -53,17 +77,21 @@
                 </div>
 
                 <div class="hero-content">
-                    <div class="tagline">Clean Code. Beautiful Design. Real Results.</div>
-                    <p class="hero-overline">Hello, I am</p>
+                    <div class="tagline" data-typing="Clean Code. Beautiful Design. Real Results." aria-label="Clean Code. Beautiful Design. Real Results.">
+                        <span class="typing-text" aria-hidden="true">Clean Code. Beautiful Design. Real Results.</span>
+                    </div>
+                    <p class="hero-overline" data-typing-once="Hello, I am">
+                        <span class="typing-text" aria-hidden="true">Hello, I am</span>
+                    </p>
                     <h1>Ayush Ghosh</h1>
-                    <p class="hero-description hero-description-home">
-                        Building clean, fast, and visually sharp digital experiences with a strong focus on usability, motion, and frontend quality.
+                    <p class="hero-description hero-description-home" data-typing-once="Building clean, fast, and visually sharp digital experiences with a strong focus on usability, motion, and frontend quality." data-typing-delay="280">
+                        <span class="typing-text" aria-hidden="true">Building clean, fast, and visually sharp digital experiences with a strong focus on usability, motion, and frontend quality.</span>
                     </p>
                 </div>
 
                 <div class="hero-side hero-side-right">
                     <div class="hero-action-stack">
-                        <a href="assets/Ayush-Ghosh-CV.pdf" class="hero-download-link" download>
+                        <a href="assets/AG_Updated_Resume.pdf" class="hero-download-link" download>
                             <span>Download Cv</span>
                             <span class="download-cv-icon" aria-hidden="true">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
@@ -553,6 +581,16 @@
 
     <!-- Footer -->
     <footer class="footer">
+        <div class="footer-marquee" aria-hidden="true">
+            <div class="footer-marquee-track">
+                <span>CLEAN CODE</span>
+                <span>CLEAN CODE</span>
+                <span>CLEAN CODE</span>
+                <span>CLEAN CODE</span>
+                <span>CLEAN CODE</span>
+                <span>CLEAN CODE</span>
+            </div>
+        </div>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">

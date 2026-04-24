@@ -1,13 +1,73 @@
 const navLinks = document.querySelectorAll('.nav-links a');
 const navToggle = document.querySelector('.nav-toggle');
+const themeToggle = document.querySelector('.theme-toggle');
 const mobileNavBreakpoint = window.matchMedia('(max-width: 960px)');
+const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 const finePointer = window.matchMedia('(pointer: fine)').matches;
 const sections = Array.from(document.querySelectorAll('section'));
 const navbar = document.querySelector('.navbar');
+const themeStorageKey = 'portfolio-theme';
+
+function updateThemeToggle(theme) {
+    if (!themeToggle) return;
+
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+
+    themeToggle.setAttribute('aria-label', `Switch to ${nextTheme} mode`);
+    themeToggle.setAttribute('title', `Switch to ${nextTheme} mode`);
+}
+
+function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    updateThemeToggle(theme);
+    updateScrollState();
+}
+
+function getStoredTheme() {
+    try {
+        return window.localStorage.getItem(themeStorageKey);
+    } catch (error) {
+        return null;
+    }
+}
+
+function setStoredTheme(theme) {
+    try {
+        window.localStorage.setItem(themeStorageKey, theme);
+    } catch (error) {
+        // Ignore storage write failures and keep the active theme in memory only.
+    }
+}
+
+applyTheme(document.documentElement.dataset.theme || (systemThemeQuery.matches ? 'dark' : 'light'));
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+        const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+        applyTheme(nextTheme);
+        setStoredTheme(nextTheme);
+    });
+}
+
+if (typeof systemThemeQuery.addEventListener === 'function') {
+    systemThemeQuery.addEventListener('change', event => {
+        if (getStoredTheme()) {
+            return;
+        }
+
+        applyTheme(event.matches ? 'dark' : 'light');
+    });
+}
 
 function setActiveNavLink(targetId) {
+    const computedStyles = window.getComputedStyle(document.documentElement);
+    const activeColor = computedStyles.getPropertyValue('--accent-color').trim() || '#58a6ff';
+    const inactiveColor = computedStyles.getPropertyValue('--text-secondary').trim() || '#8b949e';
+
     navLinks.forEach(link => {
-        link.style.color = link.getAttribute('href') === `#${targetId}` ? '#58a6ff' : '#8b949e';
+        link.style.color = link.getAttribute('href') === `#${targetId}` ? activeColor : inactiveColor;
     });
 }
 
@@ -69,6 +129,101 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ============== Page Ready ==============
 document.addEventListener('DOMContentLoaded', function () {
     document.body.classList.add('page-ready');
+});
+
+// ============== Looping Typewriter ==============
+document.addEventListener('DOMContentLoaded', function () {
+    const reducedMotionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const initializeLoopingTypewriter = element => {
+        const fullText = element.dataset.typing?.trim();
+        const textNode = element.querySelector('.typing-text');
+
+        if (!fullText || !textNode) {
+            return;
+        }
+
+        if (reducedMotionPreference.matches) {
+            textNode.textContent = fullText;
+            return;
+        }
+
+        let characterIndex = 0;
+        let isDeleting = false;
+
+        const typeDelay = 85;
+        const deleteDelay = 45;
+        const holdDelay = 1400;
+        const restartDelay = 320;
+
+        textNode.classList.add('is-typing');
+        textNode.textContent = '';
+
+        const animateTyping = () => {
+            textNode.textContent = fullText.slice(0, characterIndex);
+
+            if (!isDeleting && characterIndex < fullText.length) {
+                characterIndex += 1;
+                window.setTimeout(animateTyping, typeDelay);
+                return;
+            }
+
+            if (!isDeleting) {
+                isDeleting = true;
+                window.setTimeout(animateTyping, holdDelay);
+                return;
+            }
+
+            if (characterIndex > 0) {
+                characterIndex -= 1;
+                window.setTimeout(animateTyping, deleteDelay);
+                return;
+            }
+
+            isDeleting = false;
+            window.setTimeout(animateTyping, restartDelay);
+        };
+
+        animateTyping();
+    };
+
+    const initializeOneTimeTypewriter = element => {
+        const fullText = element.dataset.typingOnce?.trim();
+        const textNode = element.querySelector('.typing-text');
+        const startDelay = Number(element.dataset.typingDelay || 0);
+
+        if (!fullText || !textNode) {
+            return;
+        }
+
+        if (reducedMotionPreference.matches) {
+            textNode.textContent = fullText;
+            return;
+        }
+
+        let characterIndex = 0;
+        const typeDelay = 55;
+
+        textNode.textContent = '';
+        textNode.classList.add('is-typing');
+
+        const animateTyping = () => {
+            characterIndex += 1;
+            textNode.textContent = fullText.slice(0, characterIndex);
+
+            if (characterIndex < fullText.length) {
+                window.setTimeout(animateTyping, typeDelay);
+                return;
+            }
+
+            textNode.classList.remove('is-typing');
+        };
+
+        window.setTimeout(animateTyping, startDelay);
+    };
+
+    document.querySelectorAll('[data-typing]').forEach(initializeLoopingTypewriter);
+    document.querySelectorAll('[data-typing-once]').forEach(initializeOneTimeTypewriter);
 });
 
 // ============== Active Navigation Link ==============
@@ -210,6 +365,7 @@ const revealObserver = new IntersectionObserver(
 
 const revealSelectors = [
     '.section-header',
+    '.project-panel',
     '.project-card',
     '.testimonial-card',
     '.timeline-item',
@@ -225,9 +381,9 @@ revealSelectors.forEach(selector => {
     document.querySelectorAll(selector).forEach((element, index) => {
         element.classList.add('reveal');
 
-        if (element.matches('.project-card:nth-child(odd), .timeline-item:nth-child(odd), .footer-section:nth-child(odd)')) {
+        if (element.matches('.project-panel:nth-child(odd), .project-card:nth-child(odd), .timeline-item:nth-child(odd), .footer-section:nth-child(odd)')) {
             element.classList.add('reveal-left');
-        } else if (element.matches('.project-card:nth-child(even), .timeline-item:nth-child(even), .footer-section:nth-child(even)')) {
+        } else if (element.matches('.project-panel:nth-child(even), .project-card:nth-child(even), .timeline-item:nth-child(even), .footer-section:nth-child(even)')) {
             element.classList.add('reveal-right');
         }
 
