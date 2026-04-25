@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevRooms | Ayush Ghosh</title>
+    <script>
+        (() => {
+            try {
+                const storedTheme = window.localStorage.getItem('portfolio-theme');
+                const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                document.documentElement.dataset.theme = storedTheme || preferredTheme;
+            } catch (error) {
+                document.documentElement.dataset.theme = 'dark';
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="legal.css">
+</head>
+<body>
+    <main class="page-shell">
+        <nav class="page-nav">
+            <a class="brand" href="index.html">
+                <img src="assets/logo.png" alt="Ayush Ghosh logo" decoding="async">
+                <span>Ayush Ghosh</span>
+            </a>
+            <div class="nav-actions">
+                <a class="nav-link" href="index.html#projects">Projects</a>
+                <a class="nav-link" href="sitemap.html">Sitemap</a>
+                <a class="back-link" href="index.html#projects">Back to Portfolio</a>
+            </div>
+        </nav>
+
+        <section class="hero-card">
+            <div class="hero-topline">
+                <div class="eyebrow">Featured Project</div>
+                <div class="hero-index">02</div>
+            </div>
+            <h1>DevRooms</h1>
+            <p>
+                DevRooms is a real-time developer collaboration platform built around focused chatrooms,
+                release visibility, AI-assisted workflows, and structured team communication so frontend,
+                backend, QA, and delivery discussions can happen in one organized workspace.
+            </p>
+
+            <div class="project-brand">
+                <div>
+                    <small>Project Identity</small>
+                    <strong>DevRooms</strong>
+                </div>
+            </div>
+
+            <div class="hero-badges">
+                <span class="hero-badge">Channel-first Collaboration</span>
+                <span class="hero-badge">AI Assistant</span>
+                <span class="hero-badge">Live Chatrooms</span>
+                <span class="hero-badge">Deployment Visibility</span>
+            </div>
+
+            <div class="hero-meta">
+                <div class="meta-card">
+                    <span>Category</span>
+                    <strong>Developer Collaboration Platform</strong>
+                </div>
+                <div class="meta-card">
+                    <span>Focus</span>
+                    <strong>Chatrooms, workflows, handoff, delivery</strong>
+                </div>
+                <div class="meta-card">
+                    <span>Core Stack</span>
+                    <strong>React, MongoDB, Clerk, Pusher, Vercel</strong>
+                </div>
+            </div>
+
+            <div class="chapter-nav">
+                <a class="chapter-link" href="#overview">Overview</a>
+                <a class="chapter-link" href="#features">Features</a>
+                <a class="chapter-link" href="#workflow">Workflow</a>
+                <a class="chapter-link" href="#stack">Tech Stack</a>
+            </div>
+
+            <div class="hero-link-row">
+                <a class="live-link-button" href="https://devrooms-chatbot.vercel.app/" target="_blank" rel="noopener noreferrer">
+                    Visit DevRooms Live ↗
+                </a>
+            </div>
+
+            <div class="project-frame">
+                <div class="frame-grid">
+                    <div class="phone-card">
+                        <img class="phone-shot" src="assets/DevRooms/WhatsApp Image 2026-03-29 at 9.57.33 PM.jpeg" alt="DevRooms landing page showing developer chatroom hero section" decoding="async">
+                    </div>
+                    <div class="signal-stack">
+                        <div class="signal-card">
+                            <h4>Live Rooms</h4>
+                            <strong>Purpose-built channels for each team</strong>
+                            <p>Separate frontend, backend, release, and review conversations keep collaboration focused and easier to navigate.</p>
+                        </div>
+                        <div class="signal-card">
+                            <h4>AI Workflow</h4>
+                            <strong>Assistance inside the product flow</strong>
+                            <p>AI-generated summaries, release notes, and code-review help reduce context switching during active development.</p>
+                        </div>
+                        <div class="signal-card">
+                            <h4>Delivery View</h4>
+                            <strong>Status and rollout visibility</strong>
+                            <p>Teams can see deployment readiness, review progress, and room activity in one shared collaboration surface.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="gallery-grid devrooms-gallery">
+            <div class="gallery-column gallery-column-main">
+                <article class="gallery-card feature-main">
+                    <img src="assets/DevRooms/WhatsApp Image 2026-03-29 at 9.57.34 PM (6).jpeg" alt="DevRooms chatroom interface showing frontend messages and member access controls" loading="lazy" decoding="async">
+                    <div class="gallery-copy">
+                        <h3>Realtime Chatroom Workspace</h3>
+                        <p>
+                            DevRooms gives developers a structured workspace where messages, channel access,
+                            and member visibility stay connected instead of scattered across different tools.
+                        </p>
+                    </div>
+                </article>
+                <article class="gallery-card feature-side workspace-card">
+                    <img src="assets/DevRooms/WhatsApp Image 2026-03-29 at 9.57.35 PM.jpeg" alt="DevRooms workspace settings screen with profile and role configuration" loading="lazy" decoding="async">
+                    <div class="gallery-copy">
+                        <h3>Workspace Settings</h3>
+                        <p>
+                            Profile, role, and status configuration fit directly into the product system,
+                            giving each workspace a personal layer without leaving dead space in the layout.
+                        </p>
+                    </div>
+                </article>
+            </div>
+            <div class="gallery-column gallery-stack">
+                <article class="gallery-card feature-side">
+                    <img src="assets/DevRooms/WhatsApp Image 2026-03-29 at 9.57.34 PM.jpeg" alt="DevRooms features section highlighting channels, AI assistant, and deployment visibility" loading="lazy" decoding="async">
+                    <div class="gallery-copy">
+                        <h3>Feature Highlights</h3>
+                        <p>
+                            The product communicates its value clearly through channel-first collaboration,
+                            AI assistance, and live delivery tracking.
+                        </p>
+                    </div>
+                </article>
+                <article class="gallery-card feature-side">
+                    <img src="assets/DevRooms/WhatsApp Image 2026-03-29 at 9.57.34 PM (3).jpeg" alt="DevRooms join community modal with invite code entry flow" loading="lazy" decoding="async">
+                    <div class="gallery-copy">
+                        <h3>Community Join Flow</h3>
+                        <p>
+                            Teams can onboard into a workspace through invite-code based entry, keeping room access
+                            controlled and community setup intentional.
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="metric-band" id="overview">
+            <div class="metric-card">
+                <span>Main Outcome</span>
+                <strong>Focused</strong>
+                <p>Organizes developer communication into rooms built around actual engineering workflows.</p>
+            </div>
+            <div class="metric-card">
+                <span>User Value</span>
+                <strong>Fast</strong>
+                <p>Helps teams discuss, review, and ship without bouncing between disconnected tools.</p>
+            </div>
+            <div class="metric-card">
+                <span>Collaboration</span>
+                <strong>Live</strong>
+                <p>Supports real-time messaging, role-aware access, and shared delivery context.</p>
+            </div>
+            <div class="metric-card">
+                <span>Mission</span>
+                <strong>Built</strong>
+                <p>Designed to let developers make decisions as fast as they write and deploy code.</p>
+            </div>
+        </section>
+
+        <section class="story-strip">
+            <div class="spotlight-card">
+                <h3>Project Vision</h3>
+                <p>
+                    DevRooms was designed as a collaboration layer specifically for builders. Instead of
+                    using general-purpose chat and forcing engineering workflows into it, the product centers
+                    rooms, roles, code review moments, and release coordination from the start.
+                </p>
+                <div class="signature">Ayush Ghosh</div>
+            </div>
+            <div class="spotlight-card">
+                <h3>Why It Matters</h3>
+                <p>
+                    Developer communication often gets split between chat apps, review tools, planning boards,
+                    and deployment updates. DevRooms tries to reduce that fragmentation by giving engineering
+                    teams one shared environment for discussion, tracking, and handoff.
+                </p>
+            </div>
+        </section>
+
+        <section class="feature-grid" id="features">
+            <article class="feature-card">
+                <span class="section-kicker">Core Feature</span>
+                <h3>Channel-First Team Structure</h3>
+                <p>
+                    Workspaces are divided into dedicated rooms like frontend, backend, announcements,
+                    and release-up so each conversation stays focused and easier to revisit.
+                </p>
+            </article>
+            <article class="feature-card">
+                <span class="section-kicker">Core Feature</span>
+                <h3>Integrated AI Assistant</h3>
+                <p>
+                    DevRooms surfaces AI-supported help for release notes, summaries, and context
+                    generation directly inside the collaboration experience.
+                </p>
+            </article>
+            <article class="feature-card">
+                <span class="section-kicker">Core Feature</span>
+                <h3>Join and Create Community Flows</h3>
+                <p>
+                    Teams can spin up new communities or join existing ones with invite-based access,
+                    making collaboration spaces controlled but fast to enter.
+                </p>
+            </article>
+            <article class="feature-card">
+                <span class="section-kicker">Core Feature</span>
+                <h3>Member Access and Review Visibility</h3>
+                <p>
+                    Channel access, review states, and deployment context stay visible in the same
+                    workspace, helping teams move from discussion to delivery with less friction.
+                </p>
+            </article>
+        </section>
+
+        <section class="content-grid" id="workflow">
+            <article class="content-card">
+                <span class="section-kicker">User Flow</span>
+                <h2>How DevRooms Works</h2>
+                <div class="flow-list">
+                    <div class="flow-step">
+                        <strong>01</strong>
+                        <div>
+                            <h4>Enter or Create a Community</h4>
+                            <p>Developers land on the platform and either create a workspace or join an existing one using a secure invite code.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <strong>02</strong>
+                        <div>
+                            <h4>Organize by Rooms</h4>
+                            <p>Inside the workspace, discussion is separated into channels such as frontend, backend, announcements, and release tracking.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <strong>03</strong>
+                        <div>
+                            <h4>Collaborate in Real Time</h4>
+                            <p>Messages, review conversations, member roles, and room visibility update inside the same shared interface.</p>
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <strong>04</strong>
+                        <div>
+                            <h4>Ship with Better Context</h4>
+                            <p>AI support, delivery visibility, and structured handoff make it easier for teams to move from discussion into action.</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <aside class="content-card" id="stack">
+                <span class="section-kicker">Tech Stack</span>
+                <h2>Built With</h2>
+                <div class="link-list">
+                    <div class="sitemap-link">
+                        <div>
+                            <strong>React</strong>
+                            <span>Frontend interface for the landing page, dashboard, rooms, and settings experience</span>
+                        </div>
+                    </div>
+                    <div class="sitemap-link">
+                        <div>
+                            <strong>MongoDB</strong>
+                            <span>Data storage for workspaces, channels, members, and collaboration history</span>
+                        </div>
+                    </div>
+                    <div class="sitemap-link">
+                        <div>
+                            <strong>Clerk</strong>
+                            <span>Authentication and account management for secure user access</span>
+                        </div>
+                    </div>
+                    <div class="sitemap-link">
+                        <div>
+                            <strong>Pusher</strong>
+                            <span>Real-time communication updates for chatroom interactions and room activity</span>
+                        </div>
+                    </div>
+                    <a class="sitemap-link" href="https://devrooms-chatbot.vercel.app/" target="_blank" rel="noopener noreferrer">
+                        <div>
+                            <strong>Live Website</strong>
+                            <span>Open the published DevRooms experience at devrooms-chatbot.vercel.app</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="badge-stack">
+                    <span class="mini-badge">Realtime Chat</span>
+                    <span class="mini-badge">Workspace Access</span>
+                    <span class="mini-badge">Developer Workflow</span>
+                </div>
+            </aside>
+        </section>
+
+        <p class="footer-note">DevRooms brings channels, AI help, access control, and delivery visibility into one developer-focused collaboration product.</p>
+    </main>
+</body>
+</html>
