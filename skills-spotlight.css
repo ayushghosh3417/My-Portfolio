@@ -1,0 +1,396 @@
+/* Tech Stack holographic presentation. All rules stay within #tech-stack. */
+#tech-stack .skill-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+    gap: clamp(0.8rem, 1.6vw, 1.3rem);
+    width: min(100%, 1240px);
+    margin: 0 auto;
+    padding: 0 0.5rem;
+}
+
+#tech-stack .skill-column {
+    display: flex;
+    min-height: 24.25rem;
+    min-width: 0;
+    touch-action: pan-y;
+    flex-direction: column;
+    padding: 1.15rem 0.85rem 0.8rem;
+    overflow: hidden;
+    border: 1px solid rgba(139, 177, 224, 0.13);
+    border-radius: 19px;
+    background: linear-gradient(155deg, rgba(20, 31, 48, 0.35), rgba(4, 9, 17, 0.22));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+    text-align: center;
+    transition: border-color 260ms ease, background 260ms ease, transform 260ms ease;
+}
+
+#tech-stack.is-audio-dragging .skill-column,
+#tech-stack.is-audio-dragging .skill-column * {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#tech-stack .skill-column:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--skill-accent) 42%, transparent);
+    background: linear-gradient(155deg, rgba(24, 38, 59, 0.48), rgba(4, 9, 17, 0.28));
+}
+
+#tech-stack .skill-column-heading {
+    display: flex;
+    min-height: 33px;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.48rem;
+    margin-bottom: 0.45rem;
+}
+
+#tech-stack .skill-column-index {
+    color: var(--skill-accent);
+    font-family: 'Space Grotesk', 'Manrope', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+}
+
+#tech-stack .skill-column-heading h3 {
+    margin: 0;
+    color: var(--text-primary);
+    font-family: 'Outfit', 'Space Grotesk', sans-serif;
+    font-size: clamp(1rem, 1.3vw, 1.18rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
+}
+
+#tech-stack .skill-projection {
+    position: relative;
+    flex: 1;
+    min-height: 286px;
+    isolation: isolate;
+}
+
+#tech-stack .skill-items {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    gap: 0.72rem 0.52rem;
+    margin: 0;
+    padding: 0.45rem 0.05rem 6.35rem;
+    list-style: none;
+}
+
+#tech-stack .skill-item {
+    display: flex;
+    min-width: 0;
+    min-height: 55px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.38rem 0.2rem;
+    border: 1px solid rgba(173, 196, 224, 0.095);
+    border-radius: 12px;
+    background: linear-gradient(150deg, rgba(5, 10, 18, 0.64), rgba(9, 15, 24, 0.37));
+    color: var(--text-primary);
+    transition: border-color 220ms ease, background 220ms ease, transform 220ms ease, box-shadow 220ms ease;
+}
+
+#tech-stack .skill-item:hover {
+    transform: translateY(-3px);
+    border-color: color-mix(in srgb, var(--skill-accent) 55%, transparent);
+    background: color-mix(in srgb, var(--skill-accent) 11%, rgba(7, 13, 22, 0.82));
+    box-shadow: 0 8px 22px color-mix(in srgb, var(--skill-accent) 13%, transparent);
+}
+
+#tech-stack .skill-icon {
+    display: grid;
+    width: 28px;
+    height: 27px;
+    place-items: center;
+    color: var(--skill-accent);
+    animation: skill-icon-float 3.6s ease-in-out infinite;
+    animation-delay: calc(var(--skill-index, 0) * -180ms);
+    filter: drop-shadow(0 0 7px color-mix(in srgb, var(--skill-accent) 38%, transparent));
+}
+
+#tech-stack .skill-icon img {
+    display: block;
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    transition: filter 220ms ease, transform 220ms ease;
+}
+
+#tech-stack .skill-item:hover .skill-icon img {
+    filter: drop-shadow(0 0 6px var(--skill-accent));
+    transform: scale(1.08);
+}
+
+#tech-stack .skill-icon-light-tile {
+    width: 30px;
+    height: 29px;
+    padding: 3px;
+    border: 1px solid rgba(226, 235, 246, 0.78);
+    border-radius: 7px;
+    background: #f4f7fb;
+    box-shadow: 0 2px 9px rgba(0, 0, 0, 0.2);
+    filter: none;
+}
+
+#tech-stack .skill-icon-light-tile img {
+    width: 100%;
+    height: 100%;
+}
+
+#tech-stack .skill-text-mark {
+    width: auto;
+    min-width: 27px;
+    height: 25px;
+    padding: 0 0.2rem;
+    border: 1px solid color-mix(in srgb, var(--skill-accent) 55%, transparent);
+    border-radius: 6px;
+    color: var(--skill-accent);
+    font-family: 'Space Grotesk', 'Manrope', sans-serif;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.015em;
+    line-height: 1;
+}
+
+#tech-stack .skill-name {
+    display: block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    color: var(--text-primary);
+    font-family: 'Manrope', sans-serif;
+    font-size: clamp(0.61rem, 0.76vw, 0.72rem);
+    font-weight: 600;
+    line-height: 1.25;
+    text-align: center;
+}
+
+#tech-stack .skill-emitter {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+}
+
+#tech-stack .skill-beam {
+    position: absolute;
+    bottom: 21px;
+    left: 50%;
+    width: min(76%, 208px);
+    height: 226px;
+    overflow: hidden;
+    clip-path: polygon(50% 100%, 0 0, 100% 0);
+    transform: translateX(-50%);
+    background: linear-gradient(0deg,
+        color-mix(in srgb, var(--skill-accent) 22%, transparent) 0%,
+        color-mix(in srgb, var(--skill-accent) 9%, transparent) 46%,
+        transparent 100%);
+    opacity: 0.82;
+    filter: drop-shadow(0 0 11px color-mix(in srgb, var(--skill-accent) 17%, transparent));
+}
+
+#tech-stack .skill-beam::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, transparent 13%, color-mix(in srgb, var(--skill-accent) 16%, transparent) 45%, transparent 75%);
+    content: "";
+    animation: skill-beam-flow 3.4s ease-in-out infinite;
+}
+
+#tech-stack .skill-beam-streak,
+#tech-stack .skill-beam-particle {
+    position: absolute;
+    display: block;
+    opacity: 0;
+}
+
+#tech-stack .skill-beam-streak {
+    bottom: 0;
+    width: 1px;
+    height: 42%;
+    background: linear-gradient(0deg, transparent, color-mix(in srgb, var(--skill-accent) 80%, white), transparent);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--skill-accent) 65%, transparent);
+    animation: skill-streak-rise 2.7s linear infinite;
+}
+
+#tech-stack .skill-beam-streak-one { left: 36%; animation-delay: -0.8s; }
+#tech-stack .skill-beam-streak-two { left: 51%; height: 55%; animation-delay: -1.9s; }
+#tech-stack .skill-beam-streak-three { left: 65%; height: 36%; animation-delay: -1.3s; }
+
+#tech-stack .skill-beam-particle {
+    bottom: 5%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #e7f4ff;
+    box-shadow: 0 0 9px 2px var(--skill-accent);
+    animation: skill-particle-rise 2.5s linear infinite;
+}
+
+#tech-stack .skill-beam-particle-one { left: 38%; animation-delay: -0.4s; }
+#tech-stack .skill-beam-particle-two { left: 56%; width: 3px; height: 3px; animation-delay: -1.5s; }
+#tech-stack .skill-beam-particle-three { left: 67%; width: 3px; height: 3px; animation-delay: -2.1s; }
+
+#tech-stack .skill-reflection {
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    width: min(72%, 180px);
+    height: 34px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, color-mix(in srgb, var(--skill-accent) 36%, transparent), transparent 72%);
+    filter: blur(10px);
+    opacity: 0.62;
+    transform: translateX(-50%);
+}
+
+#tech-stack .skill-ring {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    width: 148px;
+    height: 30px;
+    border: 1px solid color-mix(in srgb, var(--skill-accent) 78%, white);
+    border-radius: 50%;
+    background: radial-gradient(ellipse, color-mix(in srgb, var(--skill-accent) 15%, transparent), transparent 67%);
+    box-shadow: 0 0 13px color-mix(in srgb, var(--skill-accent) 34%, transparent), inset 0 0 9px color-mix(in srgb, var(--skill-accent) 14%, transparent);
+    animation: skill-ring-pulse 3.2s ease-in-out infinite;
+    transform: translateX(-50%);
+}
+
+#tech-stack .skill-ring::before {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0 73%, var(--skill-accent) 79%, rgba(225, 244, 255, 0.9) 82%, transparent 88% 100%);
+    content: "";
+    opacity: 0.8;
+    -webkit-mask: radial-gradient(transparent 55%, #000 62%);
+    mask: radial-gradient(transparent 55%, #000 62%);
+    animation: skill-ring-spin 4.2s linear infinite;
+}
+
+#tech-stack .skill-ring-core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 5px;
+    border: 1px solid rgba(227, 244, 255, 0.88);
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--skill-accent) 24%, transparent);
+    box-shadow: 0 0 8px color-mix(in srgb, var(--skill-accent) 64%, transparent);
+    transform: translate(-50%, -50%);
+}
+
+@keyframes skill-icon-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+@keyframes skill-beam-flow {
+    0%, 100% { opacity: 0.28; transform: translateY(38%); }
+    55% { opacity: 0.8; transform: translateY(-28%); }
+}
+
+@keyframes skill-streak-rise {
+    0% { opacity: 0; transform: translateY(38%); }
+    24% { opacity: 0.8; }
+    100% { opacity: 0; transform: translateY(-145%); }
+}
+
+@keyframes skill-particle-rise {
+    0% { opacity: 0; transform: translateY(0) scale(0.65); }
+    16% { opacity: 0.9; }
+    88% { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-188px) scale(0.3); }
+}
+
+@keyframes skill-ring-pulse {
+    0%, 100% { box-shadow: 0 0 13px color-mix(in srgb, var(--skill-accent) 34%, transparent), inset 0 0 9px color-mix(in srgb, var(--skill-accent) 14%, transparent); }
+    50% { box-shadow: 0 0 21px color-mix(in srgb, var(--skill-accent) 50%, transparent), inset 0 0 12px color-mix(in srgb, var(--skill-accent) 23%, transparent); }
+}
+
+@keyframes skill-ring-spin {
+    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 1050px) {
+    #tech-stack .skill-showcase-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        max-width: 780px;
+        gap: 1rem;
+    }
+
+    #tech-stack .skill-column-heading h3 {
+        font-size: 1.12rem;
+    }
+
+    #tech-stack .skill-name {
+        font-size: 0.72rem;
+    }
+}
+
+@media (max-width: 600px) {
+    #tech-stack .skill-showcase-grid {
+        grid-template-columns: minmax(0, 1fr);
+        width: min(100%, 430px);
+        gap: 0.85rem;
+        padding: 0;
+    }
+
+    #tech-stack .skill-column {
+        padding: 1rem 0.8rem 0.75rem;
+    }
+
+    #tech-stack .skill-projection {
+        min-height: 274px;
+    }
+
+    #tech-stack .skill-items {
+        gap: 0.6rem 0.55rem;
+        padding-bottom: 5.9rem;
+    }
+
+    #tech-stack .skill-item {
+        min-height: 52px;
+    }
+
+    #tech-stack .skill-beam {
+        width: min(73%, 230px);
+        height: 218px;
+    }
+}
+
+:root[data-theme="light"] #tech-stack .skill-column {
+    border-color: rgba(15, 23, 42, 0.12);
+    background: linear-gradient(155deg, rgba(255, 255, 255, 0.56), rgba(235, 241, 249, 0.48));
+}
+
+:root[data-theme="light"] #tech-stack .skill-item {
+    border-color: rgba(15, 23, 42, 0.1);
+    background: rgba(255, 255, 255, 0.68);
+}
+
+:root[data-theme="light"] #tech-stack .skill-item:hover .skill-icon img {
+    filter: drop-shadow(0 0 6px var(--skill-accent));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #tech-stack .skill-icon,
+    #tech-stack .skill-beam::before,
+    #tech-stack .skill-beam-streak,
+    #tech-stack .skill-beam-particle,
+    #tech-stack .skill-ring {
+        animation: none;
+    }
+}

@@ -4,9 +4,20 @@ const themeToggle = document.querySelector('.theme-toggle');
 const mobileNavBreakpoint = window.matchMedia('(max-width: 960px)');
 const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 const finePointer = window.matchMedia('(pointer: fine)').matches;
+const cursorDot = document.querySelector('.cursor-dot');
 const sections = Array.from(document.querySelectorAll('section'));
 const navbar = document.querySelector('.navbar');
 const themeStorageKey = 'portfolio-theme';
+
+if (cursorDot && finePointer) {
+    window.addEventListener('pointermove', event => {
+        cursorDot.style.left = `${event.clientX}px`;
+        cursorDot.style.top = `${event.clientY}px`;
+        document.body.classList.add('cursor-visible');
+    }, { passive: true });
+
+    window.addEventListener('blur', () => document.body.classList.remove('cursor-visible'));
+}
 
 function updateThemeToggle(theme) {
     if (!themeToggle) return;
@@ -365,9 +376,7 @@ const revealObserver = new IntersectionObserver(
 
 const revealSelectors = [
     '.section-header',
-    '.project-panel',
     '.project-card',
-    '.testimonial-card',
     '.timeline-item',
     '.proficiency-item',
     '.tech-category',
@@ -391,6 +400,93 @@ revealSelectors.forEach(selector => {
         revealObserver.observe(element);
     });
 });
+
+// ============== Testimonials Carousel ==============
+document.querySelectorAll('[data-testimonials-carousel]').forEach(carousel => {
+    const track = carousel.querySelector('.testimonials-track');
+    const originalSet = track?.querySelector('[data-testimonial-set]');
+
+    if (!track || !originalSet || originalSet.children.length < 2) return;
+
+    const duplicateSet = originalSet.cloneNode(true);
+    duplicateSet.removeAttribute('data-testimonial-set');
+    duplicateSet.setAttribute('aria-hidden', 'true');
+    duplicateSet.setAttribute('inert', '');
+    track.append(duplicateSet);
+    track.classList.add('is-ready');
+});
+
+// ============== Projects Scroll Stack ==============
+const projectStackCards = Array.from(document.querySelectorAll('#projects .project-panel'));
+const projectStackReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+const projectStackMobile = window.matchMedia('(max-width: 720px)');
+let projectStackFrame = 0;
+
+if (projectStackCards.length) {
+    const clampProjectProgress = value => Math.max(0, Math.min(1, value));
+
+    const updateProjectStack = () => {
+        projectStackFrame = 0;
+
+        const isCompactStack = window.innerWidth <= 900;
+        const baseTop = isCompactStack ? 96 : 112;
+        const stackOffset = isCompactStack ? 12 : 18;
+        const viewportHeight = window.innerHeight;
+
+        projectStackCards.forEach((card, index) => {
+            card.style.setProperty('--stack-index', String(index));
+            card.style.setProperty('--stack-top', `${baseTop + index * stackOffset}px`);
+        });
+
+        if (projectStackReducedMotion.matches || projectStackMobile.matches) {
+            projectStackCards.forEach(card => {
+                card.style.setProperty('--stack-y', '0px');
+                card.style.setProperty('--stack-scale', '1');
+                card.style.setProperty('--stack-opacity', '1');
+            });
+            return;
+        }
+
+        const cardRects = projectStackCards.map(card => {
+            const appliedY = Number.parseFloat(card.style.getPropertyValue('--stack-y')) || 0;
+            return card.getBoundingClientRect().top - appliedY;
+        });
+
+        projectStackCards.forEach((card, index) => {
+            const stackTop = baseTop + index * stackOffset;
+            const entryRange = Math.max(1, viewportHeight - stackTop);
+            const entryProgress = clampProjectProgress((viewportHeight - cardRects[index]) / entryRange);
+            const nextIndex = index + 1;
+            const nextTop = baseTop + nextIndex * stackOffset;
+            const nextRange = Math.max(1, viewportHeight - nextTop);
+            const nextProgress = nextIndex < cardRects.length
+                ? clampProjectProgress((viewportHeight - cardRects[nextIndex]) / nextRange)
+                : 0;
+
+            const scale = 0.985 + 0.015 * entryProgress - 0.045 * nextProgress;
+            const y = 24 * (1 - entryProgress) - 12 * nextProgress;
+            const opacity = (0.82 + 0.18 * entryProgress) * (1 - 0.08 * nextProgress);
+
+            card.style.setProperty('--stack-y', `${y.toFixed(2)}px`);
+            card.style.setProperty('--stack-scale', scale.toFixed(4));
+            card.style.setProperty('--stack-opacity', opacity.toFixed(3));
+        });
+    };
+
+    const scheduleProjectStackUpdate = () => {
+        if (projectStackFrame) return;
+        projectStackFrame = window.requestAnimationFrame(updateProjectStack);
+    };
+
+    window.addEventListener('scroll', scheduleProjectStackUpdate, { passive: true });
+    window.addEventListener('resize', scheduleProjectStackUpdate, { passive: true });
+
+    if (typeof projectStackReducedMotion.addEventListener === 'function') {
+        projectStackReducedMotion.addEventListener('change', scheduleProjectStackUpdate);
+    }
+
+    updateProjectStack();
+}
 
 // ============== Number Counter Animation ==============
 function animateCounter(element, target, duration = 2000) {
@@ -433,6 +529,151 @@ const proficiencyObserver = new IntersectionObserver(function (entries) {
 document.querySelectorAll('.proficiency-item').forEach(item => {
     proficiencyObserver.observe(item);
 });
+
+// ============== Skills Card Drag Audio ==============
+const skillAudioSection = document.querySelector('#tech-stack');
+const skillAudioCards = skillAudioSection
+    ? Array.from(skillAudioSection.querySelectorAll('.skill-column'))
+    : [];
+
+if (skillAudioSection && skillAudioCards.length && typeof window.PointerEvent === 'function') {
+    const skillDragAudio = new Audio('assets/jaadu_audio.mp3');
+    skillDragAudio.preload = 'auto';
+    skillDragAudio.loop = true;
+
+    let activeSkillDrag = null;
+    let hoverSkillAudioActive = false;
+
+    const startSkillAudio = () => {
+        if (!skillDragAudio.paused) return;
+
+        skillDragAudio.currentTime = 0;
+        skillDragAudio.playbackRate = 1;
+        const playback = skillDragAudio.play();
+        if (playback && typeof playback.catch === 'function') {
+            playback.catch(() => {});
+        }
+    };
+
+    const stopSkillAudio = () => {
+        skillDragAudio.pause();
+        skillDragAudio.currentTime = 0;
+        skillDragAudio.playbackRate = 1;
+    };
+
+    const finishSkillDrag = (event, releaseCapture = false) => {
+        if (!activeSkillDrag || (event && event.pointerId !== activeSkillDrag.pointerId)) return;
+
+        const finishedDrag = activeSkillDrag;
+        activeSkillDrag = null;
+        hoverSkillAudioActive = false;
+        skillAudioSection.classList.remove('is-audio-dragging');
+        stopSkillAudio();
+
+        if (
+            releaseCapture &&
+            finishedDrag.captureTarget?.hasPointerCapture(finishedDrag.pointerId)
+        ) {
+            finishedDrag.captureTarget.releasePointerCapture(finishedDrag.pointerId);
+        }
+    };
+
+    skillAudioSection.addEventListener('pointerdown', event => {
+        if (activeSkillDrag || event.isPrimary === false) return;
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+        const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+        const card = target?.closest('.skill-column');
+        if (!card || !skillAudioSection.contains(card)) return;
+
+        hoverSkillAudioActive = false;
+        stopSkillAudio();
+        activeSkillDrag = {
+            pointerId: event.pointerId,
+            captureTarget: card,
+            startX: event.clientX,
+            startY: event.clientY,
+            lastX: event.clientX,
+            lastMoveAt: event.timeStamp,
+            isDragging: false
+        };
+
+        try {
+            card.setPointerCapture(event.pointerId);
+        } catch {
+            activeSkillDrag.captureTarget = null;
+        }
+    });
+
+    skillAudioSection.addEventListener('pointerover', event => {
+        if ((event.pointerType !== 'mouse' && event.pointerType !== 'pen') || event.buttons !== 0) return;
+        if (activeSkillDrag || hoverSkillAudioActive) return;
+
+        const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+        const card = target?.closest('.skill-column');
+        if (!card || !skillAudioSection.contains(card)) return;
+
+        const relatedTarget = event.relatedTarget instanceof Element ? event.relatedTarget : null;
+        if (relatedTarget?.closest('.skill-column') === card) return;
+
+        hoverSkillAudioActive = true;
+        startSkillAudio();
+    });
+
+    skillAudioSection.addEventListener('pointerleave', event => {
+        hoverSkillAudioActive = false;
+        if (activeSkillDrag?.pointerId === event.pointerId) {
+            finishSkillDrag(event, true);
+        } else {
+            stopSkillAudio();
+        }
+    });
+
+    skillAudioSection.addEventListener('pointermove', event => {
+        if (!activeSkillDrag || event.pointerId !== activeSkillDrag.pointerId) return;
+
+        const elementAtPointer = document.elementFromPoint(event.clientX, event.clientY);
+        if (!elementAtPointer || !skillAudioSection.contains(elementAtPointer)) {
+            finishSkillDrag(event, true);
+            return;
+        }
+
+        const deltaFromStartX = event.clientX - activeSkillDrag.startX;
+        const deltaFromStartY = event.clientY - activeSkillDrag.startY;
+
+        if (!activeSkillDrag.isDragging) {
+            const verticalIntent = Math.abs(deltaFromStartY) > 22 &&
+                Math.abs(deltaFromStartY) > Math.abs(deltaFromStartX) * 1.25;
+            if (verticalIntent) {
+                finishSkillDrag(event, true);
+                return;
+            }
+
+            const horizontalDrag = Math.abs(deltaFromStartX) >= 24 &&
+                Math.abs(deltaFromStartX) > Math.abs(deltaFromStartY) * 1.25;
+            if (!horizontalDrag) return;
+
+            activeSkillDrag.isDragging = true;
+            skillAudioSection.classList.add('is-audio-dragging');
+            if (event.cancelable) event.preventDefault();
+
+            startSkillAudio();
+        }
+
+        const elapsed = Math.max(16, event.timeStamp - activeSkillDrag.lastMoveAt);
+        const horizontalSpeed = Math.min(1600, Math.abs(event.clientX - activeSkillDrag.lastX) * 1000 / elapsed);
+        const targetPlaybackRate = 0.9 + (horizontalSpeed / 1600) * 0.45;
+        skillDragAudio.playbackRate += (targetPlaybackRate - skillDragAudio.playbackRate) * 0.25;
+        activeSkillDrag.lastX = event.clientX;
+        activeSkillDrag.lastMoveAt = event.timeStamp;
+
+        if (event.cancelable) event.preventDefault();
+    });
+
+    skillAudioSection.addEventListener('pointerup', event => finishSkillDrag(event));
+    skillAudioSection.addEventListener('pointercancel', event => finishSkillDrag(event));
+    skillAudioSection.addEventListener('lostpointercapture', event => finishSkillDrag(event));
+}
 
 // ============== Pull Effect on Tech Stack Pills ==============
 const techPills = document.querySelectorAll('.tech-pill');

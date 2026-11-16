@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Developer & Designer</title>
+    <title>Ayush Ghosh | Frontend Developer &amp; Graphic Designer</title>
+    <meta name="description" content="Explore the portfolio of Ayush Ghosh, a frontend developer and graphic designer building clean, engaging digital experiences.">
     <script>
         (() => {
             try {
@@ -16,8 +17,30 @@
         })();
     </script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="skills-spotlight.css">
+    <link rel="stylesheet" href="preloader.css">
 </head>
 <body>
+    <div class="portfolio-preloader is-entering" data-portfolio-preloader role="dialog" aria-modal="true" aria-label="Ayush Ghosh portfolio introduction" tabindex="-1">
+        <div class="portfolio-preloader-grain" aria-hidden="true"></div>
+        <div class="portfolio-preloader-stage">
+            <p class="portfolio-preloader-word" data-preloader-word aria-hidden="true"></p>
+            <div class="portfolio-preloader-brand" data-preloader-brand aria-hidden="true">
+                <div class="portfolio-preloader-mark-frame">
+                    <span class="portfolio-preloader-mark-piece portfolio-preloader-mark-piece-left" aria-hidden="true">
+                        <img class="portfolio-preloader-logo" src="assets/logo.png" alt="" decoding="async" fetchpriority="high">
+                    </span>
+                    <span class="portfolio-preloader-mark-piece portfolio-preloader-mark-piece-right" aria-hidden="true">
+                        <img class="portfolio-preloader-logo" src="assets/logo.png" alt="" decoding="async" fetchpriority="high">
+                    </span>
+                </div>
+                <p class="portfolio-preloader-name">Ayush Ghosh</p>
+                <p class="portfolio-preloader-caption">Frontend Developer <span aria-hidden="true">&middot;</span> Graphic Designer</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cursor-dot" aria-hidden="true"></div>
     <div class="wave"></div>
     <div class="wave"></div>
     <canvas id="particles-bg" aria-hidden="true"></canvas>
@@ -63,59 +86,65 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Landing / Hero Section -->
     <section id="home" class="hero">
         <div class="hero-wrapper">
-            <div class="hero-grid">
-                <div class="hero-side hero-side-left">
-                    <div class="hero-side-card">
-                        <p class="hero-side-kicker">Welcome To My Portfolio</p>
-                        <p>
-                            Explore my work, skills, and experience as a frontend developer and designer focused on high-performing, user-first interfaces.
-                        </p>
+            <div class="hero-landing-grid">
+                <div class="hero-content hero-copy">
+                    <div class="hero-welcome-chip">
+                        <span class="hero-welcome-dot" aria-hidden="true"></span>
+                        <span>Welcome to my portfolio</span>
                     </div>
+                    <p class="hero-overline" data-typing="Frontend Developer &amp; Graphic Designer">
+                        <span class="typing-text" aria-hidden="true">Frontend Developer &amp; Graphic Designer</span>
+                    </p>
+                    <h1><span class="hero-name-first">Ayush</span><br><span class="hero-name-last">Ghosh.</span></h1>
+                    <p class="hero-description hero-description-home" data-typing-once="I craft clean, engaging digital experiences where thoughtful visuals meet fast, user-friendly interfaces." data-typing-delay="220">
+                        <span class="typing-text" aria-hidden="true">I craft clean, engaging digital experiences where thoughtful visuals meet fast, user-friendly interfaces.</span>
+                    </p>
+                    <div class="hero-landing-actions">
+                        <a href="#projects" class="hero-main-cta">
+                            <span>Explore my work</span>
+                            <span aria-hidden="true">&#8599;</span>
+                        </a>
+                        <a href="#contact" class="hero-text-cta">Let&#8217;s talk <span aria-hidden="true">&#8594;</span></a>
+                    </div>
+                    <a href="assets/Ayush_Ghosh_Resume.pdf" class="hero-cv-link" download="Ayush_Ghosh_Resume.pdf">
+                        <span aria-hidden="true" class="hero-cv-icon">&#8595;</span>
+                        Download my CV
+                    </a>
                 </div>
 
-                <div class="hero-content">
-                    <div class="tagline" data-typing="Clean Code. Beautiful Design. Real Results." aria-label="Clean Code. Beautiful Design. Real Results.">
-                        <span class="typing-text" aria-hidden="true">Clean Code. Beautiful Design. Real Results.</span>
+                <div class="hero-visual" role="group" aria-label="AG brand mark and selected skills">
+                    <div class="hero-visual-glow" aria-hidden="true"></div>
+                    <div class="hero-visual-panel">
+                        <div class="hero-visual-topline">
+                            <span class="hero-visual-index">AG <span>/</span> PORTFOLIO</span>
+                            <span class="hero-visual-pulse"><i aria-hidden="true"></i> DESIGN <b>+</b> CODE</span>
+                        </div>
+                        <div class="hero-logo-stage">
+                            <div class="hero-logo-orbit hero-logo-orbit-one" aria-hidden="true"></div>
+                            <div class="hero-logo-orbit hero-logo-orbit-two" aria-hidden="true"></div>
+                            <span class="hero-orbit-point hero-orbit-point-one" aria-hidden="true"></span>
+                            <span class="hero-orbit-point hero-orbit-point-two" aria-hidden="true"></span>
+                            <div class="hero-logo-backlight" aria-hidden="true"></div>
+                            <img class="hero-ag-logo" src="assets/profile.jpg" alt="Portrait of Ayush Ghosh">
+                            <span class="hero-logo-coordinate" aria-hidden="true">CODE<br>CRAFT</span>
+                        </div>
+                        <div class="hero-visual-bottomline">
+                            <span>BUILDING DIGITAL EXPERIENCES</span>
+                            <span aria-hidden="true">AG&#8212;01</span>
+                        </div>
                     </div>
-                    <p class="hero-overline" data-typing-once="Hello, I am">
-                        <span class="typing-text" aria-hidden="true">Hello, I am</span>
-                    </p>
-                    <h1>Ayush Ghosh</h1>
-                    <p class="hero-description hero-description-home" data-typing-once="Building clean, fast, and visually sharp digital experiences with a strong focus on usability, motion, and frontend quality." data-typing-delay="280">
-                        <span class="typing-text" aria-hidden="true">Building clean, fast, and visually sharp digital experiences with a strong focus on usability, motion, and frontend quality.</span>
-                    </p>
-                </div>
-
-                <div class="hero-side hero-side-right">
-                    <div class="hero-action-stack">
-                        <a href="assets/AG_Updated_Resume.pdf" class="hero-download-link" download>
-                            <span>Download Cv</span>
-                            <span class="download-cv-icon" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M12 5v11"></path>
-                                    <path d="m7.5 12 4.5 4.5 4.5-4.5"></path>
-                                </svg>
-                            </span>
-                        </a>
-                        <button class="cta-button primary">
-                            <span class="button-label">Let's Build Something</span>
-                        </button>
-                        <a href="#projects" class="cta-button secondary">
-                            <span class="button-label">View My Work</span>
-                            <span class="button-arrow" aria-hidden="true">&#8599;</span>
-                        </a>
-                    </div>
+                    <div class="hero-float-note hero-float-note-top" aria-hidden="true"><span>01</span> IDEAS INTO INTERFACES</div>
+                    <div class="hero-float-note hero-float-note-bottom" aria-hidden="true"><span class="hero-note-spark">&#10038;</span> PIXEL-PERFECT DETAILS</div>
                 </div>
             </div>
-        </div>
-        <div class="section-scroll-group">
-            <a href="#about" class="section-scroll" aria-label="Scroll to About section">
-                <span>Scroll</span>
-                <span class="section-scroll-arrow">↓</span>
-            </a>
+
+            <div class="hero-bottomline">
+                <span>FRONTEND DEVELOPMENT <i aria-hidden="true">/</i> GRAPHIC DESIGN</span>
+                <a href="#about" aria-label="Scroll to learn more about Ayush Ghosh">SCROLL TO EXPLORE <span aria-hidden="true">&#8595;</span></a>
+            </div>
         </div>
     </section>
 
@@ -127,13 +156,6 @@
                 <p class="section-subtitle">I'm a passionate developer & designer who loves doing creative works</p>
             </div>
             <div class="about-content">
-                <div class="about-image">
-                    <div class="about-profile-block">
-                        <div class="about-profile-circle">
-                            <img src="assets/profile.jpg" alt="Your Name" class="about-profile-img" loading="lazy" decoding="async">
-                        </div>
-                    </div>
-                </div>
                 <div class="about-text">
                     <p>
                         I’m a frontend developer and graphic designer passionate about crafting digital experiences that are not only visually stunning but also intuitive, 
@@ -201,23 +223,115 @@
                 <h2>My Tech Stack</h2>
                 <p class="section-subtitle">Tools, frameworks, and platforms I use to build fast, polished digital experiences.</p>
             </div>
-            <div class="tech-cloud" aria-label="Tech stack">
-                <span class="tech-pill tech-pill-blue tilt-neg-lg">React</span>
-                <span class="tech-pill tech-pill-gold tilt-md">JavaScript</span>
-                <span class="tech-pill tech-pill-dark tilt-neg-sm">Next.js</span>
-                <span class="tech-pill tech-pill-cream tilt-sm">Tailwind CSS</span>
-                <span class="tech-pill tech-pill-gold tilt-neg-md">HTML</span>
-                <span class="tech-pill tech-pill-blue tilt-md">Node.js</span>
-                <span class="tech-pill tech-pill-dark tilt-sm">MongoDB</span>
-                <span class="tech-pill tech-pill-cream tilt-neg-sm">REST APIs</span>
-                <span class="tech-pill tech-pill-blue tilt-sm">Git</span>
-                <span class="tech-pill tech-pill-gold tilt-neg-lg">Figma</span>
-                <span class="tech-pill tech-pill-dark tilt-md">Framer</span>
-                <span class="tech-pill tech-pill-cream tilt-sm">AWS</span>
-                <span class="tech-pill tech-pill-gold tilt-neg-sm">VS Code</span>
-                <span class="tech-pill tech-pill-blue tilt-md">Flutter</span>
-                <span class="tech-pill tech-pill-dark tilt-neg-md">TensorFlow</span>
-                <span class="tech-pill tech-pill-cream tilt-sm">Express.js</span>
+            <div class="skill-showcase-grid" aria-label="Skills by category">
+                <article class="skill-column" style="--skill-accent: #58a6ff">
+                    <header class="skill-column-heading">
+                        <span class="skill-column-index">01.</span>
+                        <h3>Languages</h3>
+                    </header>
+                    <div class="skill-projection">
+                        <ul class="skill-items">
+                            <li class="skill-item"><span class="skill-icon"><img src="assets/skills/c.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">C</span></li>
+                            <li class="skill-item"><span class="skill-icon skill-icon-light-tile"><img src="assets/skills/cplusplus.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">C++ (DSA)</span></li>
+                            <li class="skill-item"><span class="skill-icon"><img src="assets/skills/javascript.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">JavaScript</span></li>
+                            <li class="skill-item"><span class="skill-icon skill-text-mark">SQL</span><span class="skill-name">SQL</span></li>
+                        </ul>
+                        <div class="skill-emitter" aria-hidden="true">
+                            <div class="skill-beam">
+                                <i class="skill-beam-streak skill-beam-streak-one"></i>
+                                <i class="skill-beam-streak skill-beam-streak-two"></i>
+                                <i class="skill-beam-streak skill-beam-streak-three"></i>
+                                <i class="skill-beam-particle skill-beam-particle-one"></i>
+                                <i class="skill-beam-particle skill-beam-particle-two"></i>
+                                <i class="skill-beam-particle skill-beam-particle-three"></i>
+                            </div>
+                            <span class="skill-reflection"></span>
+                            <div class="skill-ring"><span class="skill-ring-core"></span></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="skill-column" style="--skill-accent: #61c7ff">
+                    <header class="skill-column-heading">
+                        <span class="skill-column-index">02.</span>
+                        <h3>Technologies</h3>
+                    </header>
+                    <div class="skill-projection">
+                        <ul class="skill-items">
+                            <li class="skill-item"><span class="skill-icon"><img src="assets/skills/react.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">React</span></li>
+                            <li class="skill-item"><span class="skill-icon"><img src="assets/skills/html5.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">HTML</span></li>
+                            <li class="skill-item"><span class="skill-icon"><img src="assets/skills/css.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">CSS</span></li>
+                            <li class="skill-item"><span class="skill-icon skill-text-mark">API</span><span class="skill-name">REST APIs</span></li>
+                            <li class="skill-item"><span class="skill-icon skill-icon-light-tile"><img src="assets/skills/amazonwebservices.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">AWS Cloud</span></li>
+                        </ul>
+                        <div class="skill-emitter" aria-hidden="true">
+                            <div class="skill-beam">
+                                <i class="skill-beam-streak skill-beam-streak-one"></i>
+                                <i class="skill-beam-streak skill-beam-streak-two"></i>
+                                <i class="skill-beam-streak skill-beam-streak-three"></i>
+                                <i class="skill-beam-particle skill-beam-particle-one"></i>
+                                <i class="skill-beam-particle skill-beam-particle-two"></i>
+                                <i class="skill-beam-particle skill-beam-particle-three"></i>
+                            </div>
+                            <span class="skill-reflection"></span>
+                            <div class="skill-ring"><span class="skill-ring-core"></span></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="skill-column" style="--skill-accent: #ad98ff">
+                    <header class="skill-column-heading">
+                        <span class="skill-column-index">03.</span>
+                        <h3>AI / ML</h3>
+                    </header>
+                    <div class="skill-projection">
+                        <ul class="skill-items">
+                            <li class="skill-item"><span class="skill-icon skill-icon-light-tile"><img src="assets/skills/numpy.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">NumPy</span></li>
+                            <li class="skill-item"><span class="skill-icon skill-icon-light-tile"><img src="assets/skills/pandas.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">Pandas</span></li>
+                            <li class="skill-item"><span class="skill-icon"><img src="assets/skills/scikitlearn.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">Scikit-learn</span></li>
+                            <li class="skill-item"><span class="skill-icon skill-text-mark">AI</span><span class="skill-name">GenAI</span></li>
+                        </ul>
+                        <div class="skill-emitter" aria-hidden="true">
+                            <div class="skill-beam">
+                                <i class="skill-beam-streak skill-beam-streak-one"></i>
+                                <i class="skill-beam-streak skill-beam-streak-two"></i>
+                                <i class="skill-beam-streak skill-beam-streak-three"></i>
+                                <i class="skill-beam-particle skill-beam-particle-one"></i>
+                                <i class="skill-beam-particle skill-beam-particle-two"></i>
+                                <i class="skill-beam-particle skill-beam-particle-three"></i>
+                            </div>
+                            <span class="skill-reflection"></span>
+                            <div class="skill-ring"><span class="skill-ring-core"></span></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="skill-column" style="--skill-accent: #77b2ff">
+                    <header class="skill-column-heading">
+                        <span class="skill-column-index">04.</span>
+                        <h3>Tools &amp; DBs</h3>
+                    </header>
+                    <div class="skill-projection">
+                        <ul class="skill-items">
+                            <li class="skill-item"><span class="skill-icon"><img src="assets/skills/git.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">Git</span></li>
+                            <li class="skill-item"><span class="skill-icon skill-icon-light-tile"><img src="assets/skills/github.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">GitHub</span></li>
+                            <li class="skill-item"><span class="skill-icon"><img src="assets/skills/mongodb.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">MongoDB</span></li>
+                            <li class="skill-item"><span class="skill-icon"><img src="assets/skills/postgresql.svg" alt="" loading="lazy" decoding="async"></span><span class="skill-name">PostgreSQL</span></li>
+                        </ul>
+                        <div class="skill-emitter" aria-hidden="true">
+                            <div class="skill-beam">
+                                <i class="skill-beam-streak skill-beam-streak-one"></i>
+                                <i class="skill-beam-streak skill-beam-streak-two"></i>
+                                <i class="skill-beam-streak skill-beam-streak-three"></i>
+                                <i class="skill-beam-particle skill-beam-particle-one"></i>
+                                <i class="skill-beam-particle skill-beam-particle-two"></i>
+                                <i class="skill-beam-particle skill-beam-particle-three"></i>
+                            </div>
+                            <span class="skill-reflection"></span>
+                            <div class="skill-ring"><span class="skill-ring-core"></span></div>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
         <div class="section-scroll-group">
@@ -389,62 +503,181 @@
                     <p class="section-subtitle">Case studies of some of my works</p>
                 </div>
                 <div class="projects-grid">
-                    <article class="project-panel">
-                        <div class="project-panel-header">
-                            <h3>Verde</h3>
-                            <a href="verde.html" class="project-panel-link" aria-label="View Verde details">&#8599;</a>
+                    <template id="hidden-verde-project">
+                    <article class="project-panel" data-stack-index="2">
+                        <div class="project-card-texture project-card-texture-verde" aria-hidden="true"></div>
+                        <div class="project-panel-info">
+                            <div class="project-panel-header">
+                                <div class="project-panel-heading">
+                                    <p class="project-panel-category">AI / PLANT DISCOVERY</p>
+                                    <h3>Verde</h3>
+                                </div>
+                            </div>
+                            <p class="project-panel-copy">
+                                AI-powered plant detection app with real-time identification, geolocation tagging, and environmental insights for smarter eco exploration.
+                            </p>
+                            <div class="project-panel-tech" aria-label="Technologies used">
+                                <span>Flutter</span>
+                                <span>TensorFlow</span>
+                                <span>MongoDB</span>
+                                <span>Maps API</span>
+                            </div>
+                            <div class="project-panel-footer">
+                                <span class="project-panel-link project-panel-visit is-unavailable" role="img" title="Visit Website unavailable for Verde" aria-label="Visit Website unavailable for Verde">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M14 4h6v6M20 4l-9 9" />
+                                        <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" />
+                                    </svg>
+                                    <span>Visit Website</span><span aria-hidden="true">&#8599;</span>
+                                </span>
+                                <span class="project-panel-number" aria-hidden="true">03</span>
+                            </div>
                         </div>
-                        <p class="project-panel-copy">
-                            AI-powered plant detection app with real-time identification, geolocation tagging, and environmental insights for smarter eco exploration.
-                        </p>
-                        <div class="project-panel-tech">
-                            <span>Flutter</span>
-                            <span>TensorFlow</span>
-                            <span>MongoDB</span>
-                            <span>Maps API</span>
+                        <div class="project-preview">
+                            <div class="project-preview-empty" role="img" aria-label="Verde project screenshot will be added">
+                                <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                                    <rect x="7" y="9" width="34" height="29" rx="5" />
+                                    <path d="M14 31l8-8 6 6 4-4 5 6M17 18h.01" />
+                                </svg>
+                                <span>Project preview</span>
+                                <small>Screenshot coming soon</small>
+                            </div>
+                            <span class="project-visit-icon is-unavailable" role="img" title="Visit Website" aria-label="Visit Website unavailable for Verde" data-tooltip="Visit Website">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M14 4h6v6M20 4l-9 9" />
+                                    <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" />
+                                </svg>
+                            </span>
                         </div>
-                        <span class="project-panel-number">1</span>
+                    </article>
+                    </template>
+
+                    <article class="project-panel" data-stack-index="0">
+                        <div class="project-card-texture project-card-texture-devrooms" aria-hidden="true"></div>
+                        <div class="project-panel-info">
+                            <div class="project-panel-header">
+                                <div class="project-panel-heading">
+                                    <p class="project-panel-category">REALTIME COLLABORATION</p>
+                                    <h3>DevRooms</h3>
+                                </div>
+                            </div>
+                            <p class="project-panel-copy">
+                                DevRooms enables coders to collaborate on projects in real time,
+                                 with dedicated channels for frontend and backend discussions,
+                                 making communication more structured and productive.
+                                 The goal is to help developers make decisions as fast as they
+                                 write code and discuss it with their team.
+                            </p>
+                            <div class="project-panel-tech" aria-label="Technologies used">
+                                <span>React</span>
+                                <span>Pusher</span>
+                                <span>Express.js</span>
+                                <span>Node.js</span>
+                                <span>Clerk</span>
+                            </div>
+                            <div class="project-panel-footer">
+                                <a class="project-panel-link project-panel-visit" href="https://devrooms-chatbot.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Visit DevRooms website in a new tab" title="Visit Website">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M14 4h6v6M20 4l-9 9" />
+                                        <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" />
+                                    </svg>
+                                    <span>Visit Website</span><span aria-hidden="true">&#8599;</span>
+                                </a>
+                                <span class="project-panel-number" aria-hidden="true">01</span>
+                            </div>
+                        </div>
+                        <div class="project-preview">
+                            <img class="project-preview-image project-preview-image-devrooms" src="assets/DevRooms/previewimage.jpeg" alt="DevRooms landing page and live code review interface" loading="lazy" decoding="async">
+                            <a class="project-visit-icon" href="https://devrooms-chatbot.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Visit DevRooms website" title="Visit Website" data-tooltip="Visit Website">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M14 4h6v6M20 4l-9 9" />
+                                    <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" />
+                                </svg>
+                            </a>
+                        </div>
                     </article>
 
-                    <article class="project-panel">
-                        <div class="project-panel-header">
-                            <h3>DevRooms</h3>
-                            <a href="devrooms.html" class="project-panel-link" aria-label="View DevRooms details">&#8599;</a>
+                    <article class="project-panel" data-stack-index="1">
+                        <div class="project-card-texture project-card-texture-electassist" aria-hidden="true"></div>
+                        <div class="project-panel-info">
+                            <div class="project-panel-header">
+                                <div class="project-panel-heading">
+                                    <p class="project-panel-category">AI-POWERED ELECTION ASSISTANCE</p>
+                                    <h3>ElectAssist</h3>
+                                </div>
+                            </div>
+                            <p class="project-panel-copy">
+                                ElectAssist is an AI-powered election assistance platform designed to simplify the election process by providing voters with real-time guidance, useful information, and an intuitive way to understand the voting process.
+                            </p>
+                            <div class="project-panel-tech" aria-label="Technologies used">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>Vanilla JS</span>
+                                <span>Google Gemini API</span>
+                                <span>Web Speech API</span>
+                            </div>
+                            <div class="project-panel-footer">
+                                <a class="project-panel-link project-panel-visit" href="https://electassist.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Visit ElectAssist website in a new tab" title="Visit Website">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M14 4h6v6M20 4l-9 9" />
+                                        <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" />
+                                    </svg>
+                                    <span>Visit Website</span><span aria-hidden="true">&#8599;</span>
+                                </a>
+                                <span class="project-panel-number" aria-hidden="true">02</span>
+                            </div>
                         </div>
-                        <p class="project-panel-copy">
-                            DevRooms enables coders to collaborate on projects in real time,
-                             with dedicated channels for frontend and backend discussions, 
-                             making communication more structured and productive. 
-                             The goal is to help developers make decisions as fast as they 
-                             write code and discuss it with their team.
-                        </p>
-                        <div class="project-panel-tech">
-                            <span>React</span>
-                            <span>Pusher</span>
-                            <span>Express.js</span>
-                            <span>Node.js</span>
-                            <span>Clerk</span>
+                        <div class="project-preview">
+                            <img class="project-preview-image project-preview-image-electassist" src="assets/Electassist/preview.png" alt="ElectAssist voter assistance platform with voter registration, election timeline, voting methods, and common questions" loading="lazy" decoding="async">
+                            <a class="project-visit-icon" href="https://electassist.netlify.app/" target="_blank" rel="noopener noreferrer" aria-label="Visit ElectAssist website" title="Visit Website" data-tooltip="Visit Website">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M14 4h6v6M20 4l-9 9" />
+                                    <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" />
+                                </svg>
+                            </a>
                         </div>
-                        <span class="project-panel-number">2</span>
                     </article>
 
-                    <article class="project-panel">
-                        <div class="project-panel-header">
-                            <h3>Vortex HandTracking AR</h3>
-                            <a href="#" class="project-panel-link" aria-label="View finance app details">&#8599;</a>
+                    <article class="project-panel" data-stack-index="2">
+                        <div class="project-card-texture project-card-texture-vortex" aria-hidden="true"></div>
+                        <div class="project-panel-info">
+                            <div class="project-panel-header">
+                                <div class="project-panel-heading">
+                                    <p class="project-panel-category">INTERACTIVE WEB AR</p>
+                                    <h3>Vortex HandTracking AR</h3>
+                                </div>
+                            </div>
+                            <p class="project-panel-copy">
+                                A real-time hand tracking AR system that uses MediaPipe and JavaScript to detect hand gestures and enable interactive,
+                                gesture-based visual experiences in the browser.
+                            </p>
+                            <div class="project-panel-tech" aria-label="Technologies used">
+                                <span>Html</span>
+                                <span>Css</span>
+                                <span>Vanilla Js</span>
+                                <span>Canvas API</span>
+                                <span>Web Audio API</span>
+                            </div>
+                            <div class="project-panel-footer">
+                                <a class="project-panel-link project-panel-visit" href="https://vortex-handtracker.vercel.app/" target="_blank" rel="noopener noreferrer" title="Visit Vortex HandTracking AR website" aria-label="Visit Vortex HandTracking AR website">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M14 4h6v6M20 4l-9 9" />
+                                        <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" />
+                                    </svg>
+                                    <span>Visit Website</span><span aria-hidden="true">&#8599;</span>
+                                </a>
+                                <span class="project-panel-number" aria-hidden="true">03</span>
+                            </div>
                         </div>
-                        <p class="project-panel-copy">
-                            A real-time hand tracking AR system that uses MediaPipe and JavaScript to detect hand gestures and enable interactive, 
-                            gesture-based visual experiences in the browser.
-                        </p>
-                        <div class="project-panel-tech">
-                            <span>Html</span>
-                            <span>Css</span>
-                            <span>Vanilla Js</span>
-                            <span>Canvas API</span>
-                            <span>Web Audio API</span>
+                        <div class="project-preview">
+                            <img class="project-preview-image project-preview-image-vortex" src="assets/Vortex Handtracking AR/preview1.png" alt="Vortex HandTracking AR detecting hand gestures with colorful motion trails" loading="lazy" decoding="async">
+                            <a class="project-visit-icon" href="https://vortex-handtracker.vercel.app/" target="_blank" rel="noopener noreferrer" title="Visit Website" aria-label="Visit Vortex HandTracking AR website" data-tooltip="Visit Website">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M14 4h6v6M20 4l-9 9" />
+                                    <path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5" />
+                                </svg>
+                            </a>
                         </div>
-                        <span class="project-panel-number">3</span>
                     </article>
                 </div>
             </div>
@@ -468,8 +701,11 @@
                 <h2>Client Testimonials</h2>
                 <p class="section-subtitle">What people say about working with me</p>
             </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
+            <div class="testimonials-carousel" data-testimonials-carousel role="region" aria-roledescription="carousel" aria-label="Client testimonials">
+                <div class="testimonials-viewport">
+                    <div class="testimonials-grid testimonials-track">
+                <div class="testimonials-set" data-testimonial-set>
+                <div class="testimonial-card" role="group" aria-roledescription="slide" aria-label="1 of 3">
                     <div class="stars">★★★★★</div>
                     <p class="testimonial-text">
                         "Exceptional UI/UX designer who truly understood our vision and translated
@@ -484,7 +720,7 @@
                     </div>
                 </div>
 
-                <div class="testimonial-card">
+                <div class="testimonial-card" role="group" aria-roledescription="slide" aria-label="2 of 3">
                     <div class="stars">★★★★★</div>
                     <p class="testimonial-text">
                         "Professional, responsive, and highly skilled UI/UX designer. Even while handling 
@@ -499,7 +735,7 @@
                     </div>
                 </div>
 
-                <div class="testimonial-card">
+                <div class="testimonial-card" role="group" aria-roledescription="slide" aria-label="3 of 3">
                     <div class="stars">★★★★★</div>
                     <p class="testimonial-text">
                         "Great UI/UX expertise with strong attention to detail and clear communication throughout 
@@ -510,6 +746,9 @@
                     <div class="testimonial-author">
                         <div class="author-name">Amresh Kant</div>
                         <div class="author-role">CEO, Eco Friendly Delivery </div>
+                    </div>
+                </div>
+                </div>
                     </div>
                 </div>
             </div>
@@ -633,6 +872,7 @@
 
     <script src="api-service.js"></script>
     <script src="script.js"></script>
+    <script src="preloader.js"></script>
 </body>
 </html>
 
